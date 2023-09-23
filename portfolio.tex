@@ -1,0 +1,149 @@
+\documentclass{article}
+
+% I want this stuff before the rest of the preamble because it's the stuff that
+% I'll most likely be looking for at the top of the file.
+\title{My First LaTeX Document}
+\author{Paul Zupan}
+\date{September 16, 2023}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.18}
+
+\begin{document}
+
+\maketitle
+
+\section{Limits and Continuity}
+
+\subsection{Introducing Calculus: Can Change Occur at an Instant?}
+
+\begin{tikzpicture}[
+    declare function={
+        func(\x) =
+            and(\x >= 0, \x <= 6) * (5 * \x + 10) +
+            and(\x > 6, \x <= 10) * (40) +
+            and(\x > 10, \x <= 12) * (10 * \x - 60);
+    }
+]
+    \begin{axis}[xmin=0, xmax=12, ymin=0, ymax=60]
+        \addplot[domain=0:12]{func(x)};
+    \end{axis}
+\end{tikzpicture}
+
+A particle is moving on the $x$-axis and the position of the particle at time
+$t$ is given by $x(t)$, whose graph is shown above. Which of the following is
+the best estimate for the speed of the particle at time $t = 4$?
+
+\begin{enumerate}[label=\Alph*]
+    \item 0
+    \item 5
+    \item $\frac{15}{2}$
+    \item 10
+\end{enumerate}
+
+First, we know that the graph represents the speed of the particle for a time
+$t$. That is another way of saying that it represents the rate of change of the
+position of the particle with respect to time at a time $t$, and since $t$
+represents a point in time, we could say that we are being asked to find
+$\frac{d}{dt} x(t)$ for $t = 4$.
+
+The derivative is just the slope, so we need to find the slope of $x(t)$ for $x
+= 4$. This can be done by taking two points on the first portion of the graph,
+that is to say any two values of $x(t)$ such that $0 \leq t \leq 6$. Here, I
+choose to use (2, 20) and (6, 40).
+
+The slope of the line that passes through those two points, given by $m$, can
+be calculated as follows:
+
+\begin{align}
+    m &= \frac{40 - 20}{6 - 2} \\
+      &= \frac{20}{4} \\
+      &= 5
+\end{align}
+
+Now, it can be plainly seen that the answer is B.
+
+$\blacksquare$
+
+\subsection{Defining Limits and Using Limit Notation}
+
+\begin{tikzpicture}[
+    declare function={
+        func(\x) =
+            (\x < 2) * (2) +
+            (\x == 2) * 1 +
+            (\x > 2) * \x;
+    }
+]
+    \begin{axis}[xmin=-1, xmax=4, ymin=-2, ymax=4]
+        \addplot[domain=-1:4]{func(x)};
+    \end{axis}
+\end{tikzpicture}
+
+The graph of the function $f$ is shown above. What is $lim_{x \to 2} f(x)$?
+
+\begin{enumerate}[label=\Alph*]
+    \item 0
+    \item 1
+    \item 2
+    \item The limit does not exist
+\end{enumerate}
+
+One way to evaluate a limit expression is to compare the values of the left and
+right hand limits. That is the strategy that we will use here. In the absence
+of an accompanying equation, we must make an assumption. I will assume that
+$y(x)$ is represented by the following piecewise-define equation:
+
+\begin{math}
+    f(x) = \begin{cases}
+        2 \text{ if } x < 2 \\
+        1 \text{ if } x = 2 \\
+        x \text{ if } x > 2
+    \end{cases}
+\end{math}
+
+Now, we are free to take the limit from the left hand side:
+
+\begin{align}
+    \lim_{x \to 2 ^ -} f(x)
+        &= \lim_{x \to 2 ^ -} 2 \\
+        &= 2
+\end{align}
+
+Next, the right hand side:
+
+\begin{align}
+    \lim_{x \to 2 ^ +} f(x)
+        &= \lim_{x \to 2 ^ +} x \\
+        &= 2
+\end{align}
+
+Both the left and right hand limits evaluate to 2, therefore $\lim_{x \to 2}
+f(x) = 2$.
+
+$\blacksquare$
+
+\subsection{Estimating Limit Values from Graphs}
+
+Add graph here.
+
+The graph of the function $h$ is shown above. What is $\lim_{x \to 4} h(x)$?
+
+\begin{enumerate}[label=\Alph*]
+    \item -1
+    \item 2
+    \item 5
+    \item nonexistent
+\end{enumerate}
+
+Here, we can use the same technique as the last problem (see section 1.2). We
+must make another assumption about the equation that the graph above
+represents, as an equation was not provided.
+
+Actually, maybe it would be better to use an epsilon delta proof here.
+
+\end{document}
